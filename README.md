@@ -51,7 +51,10 @@ This project was made using the follow technologies:
 # Clone Repository
 $ git clone https://github.com/ApertureLaboratory/bot-discordone.git
 
-# Run application (Needs token)
+# Install dependencies
+$ npm install
+
+# Run application (Needs token and NodeJS)
 $ node run app.js
 ```
 
