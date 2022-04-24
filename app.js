@@ -4,7 +4,6 @@ const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const ytdl = require("ytdl-core-discord");
 require('dotenv/config');
-let counter = {};
 let queue = [];
 
 async function playQueue(connection) {
@@ -17,33 +16,12 @@ async function playQueue(connection) {
     });
 }
 
-const filter = (reaction, user) => {
-    return ['👍', '👎'].includes(reaction.emoji.name) && !user.bot;
-};
-
 client.once('ready', () => {
     console.log('Iniciado com sucesso!');
 });
 
 client.on('message', message => {
     try {
-        const activeRole = message.guild.roles.cache.find(role => role.name = "Active");
-        if (message.author.bot) return;
-
-        if (activeRole) {
-            if (!counter[message.author.id]) {
-                counter[message.author.id] = 1;
-            } else {
-                counter[message.author.id] += 1;
-            }
-
-            if (counter[message.author.id] >= 100 && !message.member.roles.cache.has(activeRole.id)) {
-                message.member.roles.add(activeRole).then((member) => {
-                    message.reply("Parabéns, pela sua participação você ganhou um novo cargo!");
-                }).catch(console.error);
-            }
-        }
-
         const prefix = process.env.PREFIX;
         if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -51,7 +29,7 @@ client.on('message', message => {
         const command = arguments.shift().toLowerCase();
 
         if (command === "ping") {
-            message.reply("Pong!");
+            message.channel.send(`🏓 PONG! | Sua latência com o servidor é **${Date.now() - message.createdTimestamp}ms** e a latência comigo é **${Math.round(client.ws.ping)}ms**`);
         }
 
         if (command === "play") {
@@ -59,7 +37,7 @@ client.on('message', message => {
             const URL = arguments[0];
 
             if (!voice.channelID) {
-                message.reply("É preciso estar em um canal de voz para utilizar esse comando.");
+                message.reply("É preciso estar em um canal de voz para utilizar esse comando!");
                 return;
             }
 
@@ -75,7 +53,7 @@ client.on('message', message => {
                     try {
                         playQueue(connection);
                     } catch (ex) {
-                        message.reply("Erro ao reproduzir mídia");
+                        message.reply("Erro ao reproduzir mídia, verifique se a URL é do Youtube!");
                         console.error(ex);
                     }
                 });
@@ -115,32 +93,84 @@ client.on('message', message => {
 
         // ************************************************************************************* //
 
-        if (command === "evaseries") {
+        if (command === "javascript") {
+            message.reply('https://developer.mozilla.org/en-US/docs/Web/JavaScript')
+        }
 
-            const venusRole = message.guild.roles.cache.find((role) => role.name === "N.E. #2 - Venus");
+        if (command === "nodejs") {
+            message.reply('https://nodejs.org/en/')
+        }
 
-            const nervEmoji = message.guild.emojis.cache.find(emoji => emoji.name === "nerv");
+        if (command === "discordjs") {
+            message.reply('https://discord.js.org/')
+        }
 
-            message.channel.send(`Iniciando ... PROTOCOLO V.E.N.U.S.\nIniciado! Reaja a essa mensagem para garantir seu acesso ao evento.`).then((message) => {
-                message.react(nervEmoji);
+        if (command === "react") {
+            message.reply('https://reactjs.org/')
+        }
 
-                message.client.on('messageReactionAdd', (reaction, user) => {
-                    const member = message.guild.members.cache.find((member) => member.id === user.id);
-                    if (!user.bot && reaction.emoji.name === nervEmoji.name) {
-                        member.roles.add(venusRole);
-                    }
-                })
+        if (command === "laravel") {
+            message.reply('https://laravel.com/')
+        }
 
-                message.client.on('messageReactionRemove', (reaction, user) => {
-                    const member = message.guild.members.cache.find((member) => member.id === user.id);
-                    if (!user.bot && reaction.emoji.name === nervEmoji.name) {
-                        member.roles.remove(venusRole);
-                    }
-                })
-        });
+        if (command === "vue") {
+            message.reply('https://vuejs.org/')
+        }
 
-            user.roles.add(venusRole);
-            message.reply(`Bem vindo ao evento Venus, ${userToAdd.username}`);
+        if (command === "c#") {
+            message.reply('https://docs.microsoft.com/en-us/dotnet/csharp/')
+        }
+
+        if (command === "c++") {
+            message.reply('https://docs.microsoft.com/en-us/cpp/?view=msvc-170')
+        }
+
+        if (command === "c") {
+            message.reply('https://docs.microsoft.com/en-us/cpp/?view=msvc-170')
+        }
+
+        if (command === "html") {
+            message.reply('https://developer.mozilla.org/en-US/docs/Web/HTML')
+        }
+
+        if (command === "css") {
+            message.reply('https://developer.mozilla.org/en-US/docs/Web/css')
+        }
+
+        if (command === "flutter") {
+            message.reply('https://docs.flutter.dev/')
+        }
+
+        if (command === "reactnative") {
+            message.reply('https://reactnative.dev/')
+        }
+
+        if (command === "java") {
+            message.reply('https://docs.oracle.com/en/java/')
+        }
+
+        if (command === "kotlin") {
+            message.reply('https://developer.android.com/kotlin/first')
+        }
+
+        if (command === "php") {
+            message.reply('https://www.php.net/docs.php')
+        }
+
+        if (command === "python") {
+            message.reply('https://docs.python.org/3/')
+        }
+
+        if (command === "ruby") {
+            message.reply('https://ruby-doc.org/')
+        }
+
+        if (command === "rubyonrails") {
+            message.reply('https://rubyonrails.org/')
+        }
+
+        if (command === "firebase") {
+            message.reply('https://firebase.google.com/docs')
         }
 
         // ************************************************************************************* //
@@ -154,9 +184,14 @@ client.on('message', message => {
                         name: client.user.username,
                         icon_url: client.user.avatarURL
                     },
-                    title: "EVA Unit-00 ONLINE",
-                    description: "Olá, sou a EVA Unit-00 sou a unidade de desenvolvimento oficial da NERV Open Source.",
-                    fields: [{
+                    title: "GLADOS ONLINE",
+                    description: "Olá, sou a Glados! Uma inteligência limitada da Aperture Laboratories. Isso é o que eu posso fazer: ",
+                    fields: [
+                    {
+                        name: '!ping',
+                        value: 'Mostra a latência da nossa conversa e da sua conexão com o servidor'
+                    },
+                    {
                         name: '!play <url youtube>',
                         value: "Reprodiz o audio do vídeo requisitado no canal de voz"
                     },
@@ -169,15 +204,15 @@ client.on('message', message => {
                         value: "Limpa a queue de reprodução"
                     },
                     {
-                        name: "!roles",
-                        value: "Verifica e pega cargos no servidor"
+                        name: "!linguagem",
+                        value: "Troque linguage pela linguagem que você quer e receberá a documentação dela. Caso ela não se encontre em nosso sistema, fale com um administrador para adicionar!"
                     }
                     ]
                 }
             })
         }
     } catch (ex) {
-        message.reply("Ocorreu um erro interno, por favor relate isso aos moderadores.");
+        message.reply("Ocorreu um problema na syntax, verifique novamente!");
     }
 })
 
