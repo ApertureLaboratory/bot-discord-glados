@@ -1,8 +1,9 @@
 const Discord = require("discord.js");
+const { Client, Intents } = require('discord.js');
+
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const ytdl = require("ytdl-core-discord");
 require('dotenv/config');
-
-const client = new Discord.Client();
 let counter = {};
 let queue = [];
 
