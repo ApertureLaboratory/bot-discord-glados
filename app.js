@@ -17,6 +17,7 @@ async function playQueue(connection) {
 }
 
 client.once('ready', () => {
+    client.user.setActivity('Portal with Chell', { type: 'STREAMING' });
     console.log('Iniciado com sucesso!');
 });
 
@@ -174,42 +175,34 @@ client.on('message', message => {
         }
 
         // ************************************************************************************* //
+        
+        if (message.content.toLowerCase().indexOf("Glados") > -1) {
+            message.react("😳")
+        }
 
-        if (command == "help") {
+        if (message.content.toLowerCase().indexOf("Pessoal") > -1) {
+            message.react("🚀")
+        }
 
-            message.reply({
-                embed: {
-                    color: 3066993,
-                    author: {
-                        name: client.user.username,
-                        icon_url: client.user.avatarURL
-                    },
-                    title: "GLADOS ONLINE",
-                    description: "Olá, sou a Glados! Uma inteligência limitada da Aperture Laboratories. Isso é o que eu posso fazer: ",
-                    fields: [
-                    {
-                        name: '!ping',
-                        value: 'Mostra a latência da nossa conversa e da sua conexão com o servidor'
-                    },
-                    {
-                        name: '!play <url youtube>',
-                        value: "Reprodiz o audio do vídeo requisitado no canal de voz"
-                    },
-                    {
-                        name: '!leave',
-                        value: "Para o reprodução e saí do canal de voz"
-                    },
-                    {
-                        name: "!resetqueue",
-                        value: "Limpa a queue de reprodução"
-                    },
-                    {
-                        name: "!linguagem",
-                        value: "Troque linguage pela linguagem que você quer e receberá a documentação dela. Caso ela não se encontre em nosso sistema, fale com um administrador para adicionar!"
-                    }
-                    ]
-                }
-            })
+        if (message.content.toLowerCase().indexOf("Github") > -1 || message.content.toLowerCase().indexOf("Linkedin") > -1) {
+            message.react("🥳")
+        }
+        
+        // ************************************************************************************* //
+
+        if (command === "help") {
+            message.reply(`
+            Essa é uma lista de comandos que eu, **GLaDOS** posso executar:
+
+            !ping - Eu te informo o ping do servidor e a latência da minha resposta - *PONG!*
+            !play - Eu toco uma música, mas a URL deverá ser do Youtube (!ping URL)
+            !leave - Eu simplesmente saio da sala de voz - *bye, bye*
+            !resetqueue - Eu limpo a lista de reprodução
+            !linguagem - Javascript, Python, etc - Informo o link da documentação dessa linguagem!
+
+            Qualquer sugestão de melhoria ou me ajudar a evoluir, 
+            você poderá informar no Github através de PR/Issue: https://github.com/ApertureLaboratory/bot-discord
+            `);
         }
     } catch (ex) {
         message.reply("Ocorreu um problema na syntax, verifique novamente!");
