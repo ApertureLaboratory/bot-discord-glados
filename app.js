@@ -192,14 +192,14 @@ client.on('message', message => {
 
         if (command === "help") {
             message.reply(`
-            Essa é uma lista de comandos que eu, **GLaDOS** posso executar:` + ```
+            Essa é uma lista de comandos que eu, **GLaDOS** posso executar:` ```
 
             !ping - Eu te informo o ping do servidor e a latência da minha resposta - *PONG!*
             !play - Eu toco uma música, mas a URL deverá ser do Youtube (!ping URL)
             !leave - Eu simplesmente saio da sala de voz - *bye, bye*
             !resetqueue - Eu limpo a lista de reprodução
             !linguagem - Javascript, Python, etc - Informo o link da documentação dessa linguagem! ```
-            + `
+            `
             Qualquer sugestão de melhoria ou me ajudar a evoluir, 
             você poderá informar no Github através de PR/Issue: https://github.com/ApertureLaboratory/bot-discord
             `);
