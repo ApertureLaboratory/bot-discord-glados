@@ -200,7 +200,8 @@ client.on('message', message => {
             **!resetqueue** - Eu limpo a lista de reprodução
             **!linguagem** - Javascript, Python, etc - Informo o link da documentação dessa linguagem!
 
-            Qualquer sugestão de melhoria ou me ajudar a evoluir, você poderá informar no Github através de PR/Issue: https://github.com/ApertureLaboratory/bot-discord
+            Qualquer sugestão de melhoria ou me ajudar a evoluir, 
+            você poderá informar no Github através de PR/Issue: https://github.com/ApertureLaboratory/bot-discord
             `);
         }
     } catch (ex) {
