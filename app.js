@@ -138,6 +138,10 @@ client.on('message', message => {
             message.reply('https://developer.mozilla.org/en-US/docs/Web/css')
         }
 
+        if (command === "elixir") {
+            message.reply('https://elixir-lang.org/getting-started/introduction.html')
+        }
+
         if (command === "flutter") {
             message.reply('https://docs.flutter.dev/')
         }
