@@ -92,6 +92,16 @@ client.on('message', message => {
             voice.channel.leave();
         }
 
+        // ************************************************************************************ //
+
+        if (command === "bin") {
+            message.reply(`
+            https://pastecord.com/
+            https://paste.gg/
+            https://hatebin.com/
+        `)
+        }
+
         // ************************************************************************************* //
 
         if (command === "javascript") {
