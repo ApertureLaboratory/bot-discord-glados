@@ -92,17 +92,26 @@ client.on('message', message => {
             voice.channel.leave();
         }
 
-        // ************************************************************************************ //
+// ************************************************************************************ //
 
-        if (command === "bin") {
-            message.reply(`
-            https://pastecord.com/
-            https://paste.gg/
-            https://hatebin.com/
-        `)
-        }
+if (command === "bin") {
+message.reply(`
+-
+https://pastecord.com/
+https://paste.gg/
+https://hatebin.com/
+`)
+}
 
-        // ************************************************************************************* //
+if (command === "code") {
+message.reply(`
+-
+https://codepen.io/
+https://jsfiddle.net/
+`)
+}
+
+// ************************************************************************************* //
 
         if (command === "javascript") {
             message.reply('https://developer.mozilla.org/en-US/docs/Web/JavaScript')
