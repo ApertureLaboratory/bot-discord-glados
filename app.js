@@ -1,43 +1,10 @@
 const Discord = require("discord.js");
 const { Client, Intents } = require('discord.js');
-import YTDLx from "ytdl-core";
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const ytdl = require("ytdl-core-discord");
 require('dotenv/config');
-
-const url = "https://www.youtube.com/watch?v=_tV5LEBDs7w";
-const channelId = "858420360441364500";
-let playing = false;
-
 let queue = [];
-
-function play(connection) {
-    playing = true;
-    const stream = YTDLx(url, { filter: "audioonly" });
-    connection.play(stream, { volume: 1, seek: 0 });
-}
-
-async function replay() {
-    const voiceChannel = await client.channels.fetch(channelId);
-    if (voiceChannel) {
-        voiceChannel
-            .join()
-            .then((connection) => {
-                if (!playing) {
-                    play(connection);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                playing = false;
-            });
-    }
-}
-
-client.on("ready", async () => {
-    replay();
-});
 
 async function playQueue(connection) {
     connection.play(await ytdl(queue[0]), { type: 'opus' }).on("finish", () => {
@@ -79,12 +46,6 @@ client.on('message', message => {
                 message.reply("É preciso enviar a URL do vídeo para ser reproduzido");
                 return;
             }
-
-            if (command === "lofi") {
-                if (!playing) {
-                  replay();
-                }
-              }
 
             if (!queue[0]) {
                 queue.push(URL);
@@ -131,26 +92,26 @@ client.on('message', message => {
             voice.channel.leave();
         }
 
-        // ************************************************************************************ //
+// ************************************************************************************ //
 
-        if (command === "bin") {
-            message.reply(`
+if (command === "bin") {
+message.reply(`
 -
 https://pastecord.com/
 https://paste.gg/
 https://hatebin.com/
 `)
-        }
+}
 
-        if (command === "code") {
-            message.reply(`
+if (command === "code") {
+message.reply(`
 -
 https://codepen.io/
 https://jsfiddle.net/
 `)
-        }
+}
 
-        // ************************************************************************************* //
+// ************************************************************************************* //
 
         if (command === "javascript") {
             message.reply('https://developer.mozilla.org/en-US/docs/Web/JavaScript')
@@ -237,7 +198,7 @@ https://jsfiddle.net/
         }
 
         // ************************************************************************************* //
-
+        
         if (message.content.toLowerCase().indexOf("Glados") > -1) {
             message.react("😳")
         }
@@ -249,11 +210,11 @@ https://jsfiddle.net/
         if (message.content.toLowerCase().indexOf("Github") > -1 || message.content.toLowerCase().indexOf("Linkedin") > -1) {
             message.react("🥳")
         }
-
+        
         // ************************************************************************************* //
 
-        if (command === "help") {
-            message.reply(`
+if (command === "help") {
+message.reply(`
 Essa é uma lista de comandos que eu, **GLaDOS** posso executar:
 
 **!ping** - Eu te informo o ping do servidor e a latência da minha resposta - *PONG!*
